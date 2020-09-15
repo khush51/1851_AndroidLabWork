@@ -4,106 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background"
-    tools:context=".MainActivity2">
+    tools:context=".MainActivity">
 
 
     <TextView
-        android:id="@+id/hello"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:layout_marginTop="32dp"
-        android:text="@string/hello" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="199dp"
-        android:text="@string/phone" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="122dp"
-        android:text="@string/email" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="278dp"
-        android:text="@string/dob" />
+        android:layout_marginTop="62dp"
+        android:text="Hey... This is the second activity" />
 
     <EditText
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
+        android:id="@+id/text2"
+        android:layout_width="336dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="113dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="242dp"
         android:ems="10"
-        android:hint="@string/emailDemo"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="177dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="@string/phnDemo"
-        android:inputType="phone" />
+        android:hint="Enter your text"
+        android:inputType="textPersonName"
+        android:text="" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="338dp"
-        android:layout_marginEnd="161dp"
-        android:text="@string/display" />
-
-
-    <EditText
-        android:id="@+id/dob"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="246dp"
-        android:layout_marginEnd="20dp"
-        android:ems="10"
-        android:hint="@string/dobDemo"
-        android:inputType="date" />
+        android:layout_alignTop="@+id/text2"
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:text="Next (Third)" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/area2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="145dp"
+        android:textStyle="bold"
         android:text="" />
 
 </RelativeLayout>

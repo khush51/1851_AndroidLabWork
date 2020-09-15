@@ -8,17 +8,17 @@
 
 
     <TextView
-        android:id="@+id/xt1"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="62dp"
-        android:text="Hey... This is the first activity" />
+        android:text="Hey... This is the third activity" />
 
     <EditText
-        android:id="@+id/text1"
-        android:layout_width="322dp"
+        android:id="@+id/text3"
+        android:layout_width="336dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -30,17 +30,17 @@
         android:text="" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/text1"
+        android:layout_alignTop="@+id/text3"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:text="Next (Second)" />
+        android:text="Next (First)" />
 
     <TextView
-        android:id="@+id/area1"
+        android:id="@+id/area3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
