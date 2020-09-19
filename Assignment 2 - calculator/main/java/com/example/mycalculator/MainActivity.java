@@ -6,27 +6,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView result;
+    TextView result , expression;
 
     Button ac , clear , negate , divide , multiply , subtract , add , equals , point , zero , one , two , three , four , five , six , seven , eight , nine;
+
+    boolean isAdd = true , isSub = true , isMul = true , isDiv = true , isDot = false , dec = false , zro = false , displayed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final boolean isAdd = false , isSub = false , isMul = false , isDiv = false , op1 = false, op2 = false;
-
-        final float value1 , value2 , answer;
 
         result = (TextView) findViewById(R.id.answer);
+        expression = (TextView) findViewById(R.id.exp);
 
         ac = (Button) findViewById(R.id.AC);
-        clear = (Button) findViewById(R.id.clear);
-        negate = (Button) findViewById(R.id.negate);
         divide = (Button) findViewById(R.id.divide);
         multiply = (Button) findViewById(R.id.multiply);
         subtract = (Button) findViewById(R.id.subtract);
@@ -44,37 +45,14 @@ public class MainActivity extends AppCompatActivity {
         eight = (Button) findViewById(R.id.eight);
         nine = (Button) findViewById(R.id.nine);
 
-        answer = Float.parseFloat(result.getText().toString());
-
         //reset
         ac.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                result.setText("0.0");
-
-            }
-        });
-
-        //clear
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-            }
-        });
-
-        //negate
-        negate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                float temp = Float.parseFloat(result.getText().toString());
-                temp = 0 - temp ;
-                result.setText(String.valueOf(temp));
-
+                result.setText("");
+                expression.setText("");
+                isAdd = isSub = isMul = isDiv = isDot = dec = false;
             }
         });
 
@@ -83,9 +61,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(op1 == true && op2 == true )
+                if(result.getText() != "")
                 {
-
+                    //value1 = Float.parseFloat(result.getText().toString());
+                    if(isAdd == true || isSub == true || isMul == true || isDiv == true)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else
+                    {
+                        if(isDot == false) {
+                            isDiv = true;
+                            result.setText(result.getText() + "/");
+                            if(dec == true)
+                                dec = false;
+                        }
+                    }
                 }
 
             }
@@ -96,6 +88,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(result.getText() != "")
+                {
+                    //value1 = Float.parseFloat(result.getText().toString());
+                    if(isAdd == true || isSub == true || isMul == true || isDiv == true)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else
+                    {
+                        if(isDot == false) {
+                            isMul = true;
+                            result.setText(result.getText() + "*");
+                            if(dec == true)
+                                dec = false;
+                        }
+                    }
+                }
+
             }
         });
 
@@ -103,6 +114,26 @@ public class MainActivity extends AppCompatActivity {
         subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(result.getText() != "")
+                {
+                    //value1 = Float.parseFloat(result.getText().toString());
+                    if(isAdd == true || isSub == true || isMul == true || isDiv == true)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
+                        toast.show();
+
+                    }
+                    else
+                    {
+                        if(isDot == false) {
+                            isSub = true;
+                            result.setText(result.getText() + "-");
+                            if(dec == true)
+                                dec = false;
+                        }
+                    }
+                }
 
             }
         });
@@ -112,6 +143,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(result.getText() != "")
+                {
+                    //value1 = Float.parseFloat(result.getText().toString());
+                    if(isAdd == true || isSub == true || isMul == true || isDiv == true)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else
+                    {
+                        if(isDot == false) {
+                            isAdd = true;
+                            result.setText(result.getText() + "+");
+                            zro = dec = false;
+                        }
+                    }
+                }
+
             }
         });
 
@@ -119,6 +168,120 @@ public class MainActivity extends AppCompatActivity {
         equals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String exp = result.getText().toString();
+
+                expression.setText(exp.toString());
+
+                Stack<Float> operands = new Stack<Float>();
+
+                Stack<Character> operators = new Stack<Character>();
+
+                String temp = "";
+
+                Float op1 , op2 , value;
+
+                if(isDot == true)
+                    exp += "0";
+
+                int size = exp.length();
+
+                if (isAdd == true || isSub == true || isDiv == true || isMul == true)
+                 {
+                     size--;
+                     Toast toast = Toast.makeText(getApplicationContext() , "No operand after the last operator, the operator is removed" , Toast.LENGTH_SHORT);
+                     toast.show();
+                 }
+
+                for (int i = 0 ; i < size ; i++)
+                {
+                    if( exp.charAt(i) == '+' || exp.charAt(i) == '-' || exp.charAt(i) == '/' || exp.charAt(i) == '*')
+                    {
+                        if(temp != "")
+                        {
+                            operands.push(Float.valueOf(temp));
+                            System.out.println(temp + " pushed in operands in for if operator ");
+                            temp = "";
+
+                        }
+
+                        if(exp.charAt(i) == '+' || exp.charAt(i) == '-')
+                        {
+                            if(!operators.empty())
+                            {
+                                op2 = operands.pop();
+                                op1 = operands.pop();
+
+                                value = calculate(op1 , op2 , operators.pop());
+
+                                operands.push( value );
+
+                                System.out.println(value + " pushed in operands in for after calculation");
+
+                                i--;
+                            }
+                            else
+                            {
+                                operators.push(exp.charAt(i));
+                                System.out.println(exp.charAt(i) + " pushed in operators in for lower coz none");
+                            }
+                        }
+                        else
+                        {
+                            if(!operators.empty())
+                                if(operators.peek() == '*' || operators.peek() == '/')
+                                {
+                                    op2 = operands.pop();
+                                    op1 = operands.pop();
+                                    value = calculate(op1 , op2 , operators.pop());
+
+                                    operands.push( value );
+
+                                    System.out.println(value + " pushed in operands in for after calculation");
+                                    i--;
+                                }
+                                else
+                                {
+                                    operators.push(exp.charAt(i));
+                                    System.out.println(exp.charAt(i) + " pushed in operators in for higher");
+                                }
+                            else
+                            {
+                                operators.push(exp.charAt(i));
+                                System.out.println(exp.charAt(i) + " pushed in operators in for coz none");
+                            }
+
+
+                        }
+
+                    }
+                    else
+                        temp = temp + exp.charAt(i);
+
+               }
+
+                if(temp != "")
+                {
+                    operands.push(Float.valueOf(temp));
+                    System.out.println(temp + " pushed in operands outside for");
+                }
+
+                while(!operators.empty())
+                {
+                    op2 = operands.pop();
+                    op1 = operands.pop();
+                    value = calculate(op1 , op2 , operators.pop());
+
+                    operands.push( value );
+
+                    System.out.println(value + " pushed in operands final");
+                }
+
+                expression.setText(result.getText() + "  =  " + operands.peek().toString());
+
+                result.setText("");
+
+                isAdd = isSub = isMul = isDiv = isDot = dec = zro = displayed = false;
 
             }
         });
@@ -128,6 +291,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if (result.getText() == "")
+                {
+                    result.setText("0.");
+                    isDot = true;
+                    dec = true;
+                }
+                else
+                {
+                    if (isDot == false && dec == false) {
+                        if(isAdd == true || isSub == true || isMul == true || isDiv == true)
+                            result.setText(result.getText() + "0.");
+                        else
+                            result.setText(result.getText() +".");
+                        isAdd = isDiv = isMul = isSub = false;
+                        isDot = true;
+                        dec = true;
+                    }
+                }
             }
         });
 
@@ -135,6 +316,19 @@ public class MainActivity extends AppCompatActivity {
         zero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(dec == true )
+                    result.setText(result.getText() + "0");
+                else if(zro == false)
+                {
+                    result.setText(result.getText() + "0");
+                    if(isAdd == true || isSub == true || isDiv == true || isMul == true || result.getText().length() == 1)
+                        zro = true;
+                }
+                else
+                    return;
+
+                isAdd = isDiv = isMul = isSub = isDot = false;
 
             }
         });
@@ -144,6 +338,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                result.setText(result.getText() + "1");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
+
             }
         });
 
@@ -151,6 +348,9 @@ public class MainActivity extends AppCompatActivity {
         two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                result.setText(result.getText() + "2");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
 
             }
         });
@@ -160,6 +360,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                result.setText(result.getText() + "3");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
+
             }
         });
 
@@ -167,6 +370,9 @@ public class MainActivity extends AppCompatActivity {
         four.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                result.setText(result.getText() + "4");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
 
             }
         });
@@ -176,6 +382,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                result.setText(result.getText() + "5");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
+
             }
         });
 
@@ -183,6 +392,9 @@ public class MainActivity extends AppCompatActivity {
         six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                result.setText(result.getText() + "6");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
 
             }
         });
@@ -192,6 +404,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                result.setText(result.getText() + "7");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
+
             }
         });
 
@@ -199,6 +414,9 @@ public class MainActivity extends AppCompatActivity {
         eight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                result.setText(result.getText() + "8");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
 
             }
         });
@@ -208,8 +426,39 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                result.setText(result.getText() + "9");
+                isAdd = isDiv = isMul = isSub = isDot = zro = false;
+
             }
         });
 
     }
+
+    private Float calculate(Float op1, Float op2, char pop) {
+
+        Float ans = null;
+
+        switch (pop)
+        {
+            case '+':
+                ans = op1 + op2;
+                System.out.println(op1 + " + " + op2 + " = " + ans);
+                break;
+            case '-':
+                ans = op1 - op2;
+                System.out.println(op1 + " - " + op2 + " = " + ans);
+                break;
+            case '/':
+                ans = op1 / op2;
+                System.out.println(op1 + " / " + op2 + " = " + ans);
+                break;
+            case '*':
+                ans = op1 * op2;
+                System.out.println(op1 + " * " + op2 + " = " + ans);
+                break;
+        }
+
+        return ans;
+    }
+
 }
