@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button ac , clear , negate , divide , multiply , subtract , add , equals , point , zero , one , two , three , four , five , six , seven , eight , nine;
 
+
+
     boolean isAdd = true , isSub = true , isMul = true , isDiv = true , isDot = false , dec = false , zro = false , displayed = false;
 
     @Override
@@ -45,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
         eight = (Button) findViewById(R.id.eight);
         nine = (Button) findViewById(R.id.nine);
 
+        ac.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //funtion goes here
+            }
+        });
+
         //reset
         ac.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if(result.getText() != "")
                 {
-                    //value1 = Float.parseFloat(result.getText().toString());
                     if(isAdd == true || isSub == true || isMul == true || isDiv == true)
                     {
                         Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
@@ -90,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if(result.getText() != "")
                 {
-                    //value1 = Float.parseFloat(result.getText().toString());
                     if(isAdd == true || isSub == true || isMul == true || isDiv == true)
                     {
                         Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
@@ -117,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if(result.getText() != "")
                 {
-                    //value1 = Float.parseFloat(result.getText().toString());
                     if(isAdd == true || isSub == true || isMul == true || isDiv == true)
                     {
                         Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
@@ -145,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
                 if(result.getText() != "")
                 {
-                    //value1 = Float.parseFloat(result.getText().toString());
                     if(isAdd == true || isSub == true || isMul == true || isDiv == true)
                     {
                         Toast toast = Toast.makeText(getApplicationContext() , "Cannot add another operator next" , Toast.LENGTH_SHORT);
@@ -173,13 +178,13 @@ public class MainActivity extends AppCompatActivity {
 
                 expression.setText(exp.toString());
 
-                Stack<Float> operands = new Stack<Float>();
+                Stack<Double> operands = new Stack<Double>();
 
                 Stack<Character> operators = new Stack<Character>();
 
                 String temp = "";
 
-                Float op1 , op2 , value;
+                Double op1 , op2 , value;
 
                 if(isDot == true)
                     exp += "0";
@@ -199,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                     {
                         if(temp != "")
                         {
-                            operands.push(Float.valueOf(temp));
+                            operands.push(Double.valueOf(temp));
                             System.out.println(temp + " pushed in operands in for if operator ");
                             temp = "";
 
@@ -262,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(temp != "")
                 {
-                    operands.push(Float.valueOf(temp));
+                    operands.push(Double.valueOf(temp));
                     System.out.println(temp + " pushed in operands outside for");
                 }
 
@@ -321,9 +326,19 @@ public class MainActivity extends AppCompatActivity {
                     result.setText(result.getText() + "0");
                 else if(zro == false)
                 {
-                    result.setText(result.getText() + "0");
-                    if(isAdd == true || isSub == true || isDiv == true || isMul == true || result.getText().length() == 1)
-                        zro = true;
+                    if(isDiv == true)
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext() , "Can't divide by 0" , Toast.LENGTH_SHORT);
+                        toast.show();
+                        toast = Toast.makeText(getApplicationContext() , "Enter '.' to enter a decimal number like '0.x'", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                    else
+                    {
+                        result.setText(result.getText() + "0");
+                        if(isAdd == true || isSub == true || isMul == true || result.getText().length() == 1)
+                            zro = true;
+                    }
                 }
                 else
                     return;
@@ -434,9 +449,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private Float calculate(Float op1, Float op2, char pop) {
+    private Double calculate(Double op1, Double op2, char pop) {
 
-        Float ans = null;
+        Double ans = null;
 
         switch (pop)
         {
