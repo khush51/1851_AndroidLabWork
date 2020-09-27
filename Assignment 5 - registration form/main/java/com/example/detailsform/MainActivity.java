@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     TextView personName , phoneNo , emailId , password , password2;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
