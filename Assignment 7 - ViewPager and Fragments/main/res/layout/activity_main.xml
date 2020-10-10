@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-
+    
     <include layout="@layout/actionbar"/>
-
+    
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/myActionBar"
+        app:tabTextColor="@color/black"
         android:background="@color/backgroundColor"
         android:id="@+id/tabs"/>
 
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/text1"
         android:id="@+id/myArea"/>
-
-</RelativeLayout>
+    
+</LinearLayout>
