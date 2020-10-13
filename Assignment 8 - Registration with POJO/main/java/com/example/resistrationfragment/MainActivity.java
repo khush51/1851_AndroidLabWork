@@ -47,13 +47,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         final ProfilePojo profile = new ProfilePojo();
-        profile.username = "Khushboo Shetkar";
-        profile.phoneNumber = "9923810760";
-        profile.emailId = "khush@gmail.com";
-        profile.password = "khush123";
-        profile.gender = "female";
-        profile.district = "North Goa";
-        profile.date = "30/04/1997";
+
 
         AppCompatImageButton button = (AppCompatImageButton) findViewById(R.id.done);
         button.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +92,11 @@ public class MainActivity extends AppCompatActivity {
                 gender.setChecked(true);
 
                 dist = (Spinner) part2.findViewById(R.id.district);
-                //
+
+                if(profile.district == "North Goa")
+                    dist.setSelection(0);
+                else
+                    dist.setSelection(1);
 
                 dob = (TextInputEditText) part2.findViewById(R.id.dob);
                 dob.setText(profile.date);
@@ -133,12 +131,13 @@ public class MainActivity extends AppCompatActivity {
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return super.getPageTitle(position);
+            return stringList.get(position);
         }
 
         public void addFragment(Fragment fragment , String title){
             fragmentList.add(fragment);
             stringList.add(title);
         }
+
     }
 }
