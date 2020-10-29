@@ -39,24 +39,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        names.add("BTS");
-        names.add("Jimin");
-        names.add("J-Hope");
-        names.add("Jungkook");
-        names.add("Jin");
-        names.add("Suga");
-        names.add("V");
-        names.add("Rap Monster");
-        names.add("Kookie");
-        names.add("BTS");
-        names.add("Jimin");
-        names.add("J-Hope");
-        names.add("Jungkook");
-        names.add("Jin");
-        names.add("Suga");
-        names.add("V");
-        names.add("Rap Monster");
-        names.add("Kookie");
+        names.add("1801 Abhishek");
+        names.add("1802 Adam");
+        names.add("1803 Abigail");
+        names.add("1804 Abigail");
+        names.add("1805 Adele");
+        names.add("1806 Bella");
+        names.add("1807 Blair");
+        names.add("1808 Briana");
+        names.add("1809 Charley");
+        names.add("1810 Charley");
+        names.add("1811 Dana");
+        names.add("1812 Daniella");
+        names.add("1813 Elaine");
+        names.add("1814 Elisa");
+        names.add("1815 Grace");
+        names.add("1816 Hanna");
+        names.add("1817 Hannah");
+        names.add("1818 Isabella");
+        names.add("1819 Jasmine");
+        names.add("1820 Julius");
+        names.add("1821 Keith");
+        names.add("1822 Larry");
+        names.add("1823 Lee");
+        names.add("1824 Marvin");
+        names.add("1825 Porter");
+        names.add("1826 Richard");
+        names.add("1827 Rocky");
+        names.add("1828 Stephen");
 
         listView = (ListView) findViewById(R.id.listArea);
 
@@ -103,11 +113,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //Toast.makeText(getApplicationContext() , getItem(position) + " " + position , Toast.LENGTH_SHORT).show();
+                        String temp = getItem(position);
+                        names.remove(position);
+                        listView.setAdapter(new MyAdapter(MainActivity.this , R.layout.record , names));
 
                         Snackbar.make(listView , "Message is being deleted..." , Snackbar.LENGTH_LONG)
                                 .setAction("UNDO", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        names.add(position , temp);
+                                        listView.setAdapter(new MyAdapter(MainActivity.this , R.layout.record , names));
                                         Snackbar.make(listView , "Restored!" , Snackbar.LENGTH_SHORT).show();
                                     }
                                 })
