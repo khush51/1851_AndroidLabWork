@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ListView with Snackbar</string>
+
+    <string-array name="names">
+        <item>Teertha Shetkar</item>
+        <item>Babani Shetkar</item>
+        <item>Khushboo Shetkar</item>
+        <item>Babynanda Shetkar</item>
+        <item>Vishwanath Shetkar</item>
+        <item>Vaibhavi Shetkar</item>
+        <item>Rahul Shetkar</item>
+        <item>Babynanda Shetkar</item>
+        <item>Vrunda Shetkar</item>
+        <item>Prateik Shetkar</item>
+    </string-array>
+
+</resources>
