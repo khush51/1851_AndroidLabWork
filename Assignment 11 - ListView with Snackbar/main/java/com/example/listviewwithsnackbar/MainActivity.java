@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listArea);
 
-        MyAdapter listViewAdapter = new MyAdapter(this , R.layout.record , names);
+        MyAdapter listViewAdapter = new MyAdapter(this , android.R.layout.simple_list_item_1 , R.layout.record , names);
 
         listView.setAdapter(listViewAdapter);
 
@@ -92,10 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
         private int resource1;
 
-        public MyAdapter(@NonNull Context context, int resource , List<String> names) {
-            super(context, resource , names);
+        public MyAdapter(@NonNull Context context, int simple_list_item_1, int resource , List<String> names) {
+            super(context, simple_list_item_1 , resource , names);
             resource1 = resource;
         }
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -115,18 +116,20 @@ public class MainActivity extends AppCompatActivity {
                         //Toast.makeText(getApplicationContext() , getItem(position) + " " + position , Toast.LENGTH_SHORT).show();
                         String temp = getItem(position);
                         names.remove(position);
-                        listView.setAdapter(new MyAdapter(MainActivity.this , R.layout.record , names));
+                        listView.setAdapter(new MyAdapter(MainActivity.this , android.R.layout.simple_list_item_1 , R.layout.record , names));
 
-                        Snackbar.make(listView , "Message is being deleted..." , Snackbar.LENGTH_LONG)
+                        Snackbar.make(listView , temp + " is being deleted..." , Snackbar.LENGTH_LONG)
                                 .setAction("UNDO", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
                                         names.add(position , temp);
-                                        listView.setAdapter(new MyAdapter(MainActivity.this , R.layout.record , names));
-                                        Snackbar.make(listView , "Restored!" , Snackbar.LENGTH_SHORT).show();
+                                        listView.setAdapter(new MyAdapter(MainActivity.this , android.R.layout.simple_list_item_1 , R.layout.record , names));
+                                        Snackbar.make(listView , temp + " is being deleted..." , Snackbar.LENGTH_SHORT).show();
                                     }
                                 })
                                 .show();
+
+
 
                     }
                 });
@@ -134,7 +137,31 @@ public class MainActivity extends AppCompatActivity {
             }
             else {
                 tempViewHolder = (ViewHolder) convertView.getTag();
-                //tempViewHolder.nm.setText(getItem(position));
+                tempViewHolder.delete = (ImageButton) convertView.findViewById(R.id.delete);
+                tempViewHolder.nm.setText(getItem(position));
+                tempViewHolder.delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Toast.makeText(getApplicationContext() , getItem(position) + " " + position , Toast.LENGTH_SHORT).show();
+                        String temp = getItem(position);
+                        names.remove(position);
+                        listView.setAdapter(new MyAdapter(MainActivity.this , android.R.layout.simple_list_item_1 , R.layout.record , names));
+
+                        Snackbar.make(listView , temp + " is being deleted..." , Snackbar.LENGTH_LONG)
+                                .setAction("UNDO", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        names.add(position , temp);
+                                        listView.setAdapter(new MyAdapter(MainActivity.this , android.R.layout.simple_list_item_1 , R.layout.record , names));
+                                        Snackbar.make(listView , temp + " restored!" , Snackbar.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .show();
+
+
+
+                    }
+                });
             }
 
             return convertView;
