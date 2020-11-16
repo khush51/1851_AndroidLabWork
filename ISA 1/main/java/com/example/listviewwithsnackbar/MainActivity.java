@@ -80,42 +80,21 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<PersonalDetails> tempList = new ArrayList<>();
 
-        tempList.add(new PersonalDetails("Abhishek" , false));
-        tempList.add(new PersonalDetails("Adam" , false));
-        tempList.add(new PersonalDetails("Abigail" , true));
-        tempList.add(new PersonalDetails("Abigail" , true));
-        tempList.add(new PersonalDetails("Larry" , false));
-        tempList.add(new PersonalDetails("Marvin" , false));
-        tempList.add(new PersonalDetails("Charley" , false));
-        tempList.add(new PersonalDetails("Adele" , true));
-        tempList.add(new PersonalDetails("Hannah" , true));
-        tempList.add(new PersonalDetails("Bella" , true));
-        tempList.add(new PersonalDetails("Abhishek" , false));
-        tempList.add(new PersonalDetails("Briana" , true));
-        tempList.add(new PersonalDetails("Potter" , false));
-        tempList.add(new PersonalDetails("Blair" , true));
-        tempList.add(new PersonalDetails("Elaine" , true));
-        tempList.add(new PersonalDetails("Grace" , true));
-        tempList.add(new PersonalDetails("Stephen" , false));
-        tempList.add(new PersonalDetails("Richard" , false));
-        tempList.add(new PersonalDetails("Rocky" , false));
-        tempList.add(new PersonalDetails("Keith" , false));
-        tempList.add(new PersonalDetails("Charley" , true));
-        tempList.add(new PersonalDetails("Charley" , false));
-        tempList.add(new PersonalDetails("Julius" , false));
-        tempList.add(new PersonalDetails("Lee" , false));
-        tempList.add(new PersonalDetails("Dana" , true));
-        tempList.add(new PersonalDetails("Elisa" , true));
-        tempList.add(new PersonalDetails("Jasmine" , true));
-        tempList.add(new PersonalDetails("Isabella" , true));
+        for(int i = 0 ; i < names.size() ; i++){
+            tempList.add(names.get(i));
+        }
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                MyAdapter newListViewAdapter = new MyAdapter(getApplicationContext() , android.R.layout.simple_list_item_1 , /*R.layout.record ,*/ tempList);
+                names.removeAll(names);
 
-                Toast.makeText(getApplicationContext() , "Total amount to be spent: " + calculateAmount(names) , Toast.LENGTH_LONG);
+                for(int i = 0 ; i < tempList.size() ; i++){
+                    names.add(tempList.get(i));
+                }
+
+                MyAdapter newListViewAdapter = new MyAdapter(getApplicationContext() , android.R.layout.simple_list_item_1 , /*R.layout.record ,*/ names);
 
                 listView.setAdapter(newListViewAdapter);
 
