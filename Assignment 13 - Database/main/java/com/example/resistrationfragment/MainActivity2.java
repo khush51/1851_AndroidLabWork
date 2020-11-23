@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity2 extends AppCompatActivity {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class MainActivity2 extends AppCompatActivity {
                 startActivity(new Intent(MainActivity2.this , MainActivity.class));
             }
         });
+
+
 
     }
 }

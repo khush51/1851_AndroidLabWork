@@ -2,6 +2,7 @@ package com.example.resistrationfragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         title.setText("Registration");
 
         AppCompatImageButton prev = (AppCompatImageButton) findViewById(R.id.prev);
-        prev.setVisibility(View.GONE);
+        prev.setVisibility(View.INVISIBLE);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
@@ -133,12 +135,10 @@ public class MainActivity extends AppCompatActivity {
                     user.phoneNumber = phn.getText().toString();
                     user.district = dist.getSelectedItem().toString();
                     user.date = dob.getText().toString();
-                    if(gen.getCheckedRadioButtonId() == 0)
-                        user.gender = "Male";
-                    else if(gen.getCheckedRadioButtonId() == 1)
-                        user.gender = "Female";
-                    else
-                        user.gender = "Other";
+
+                    gender = (RadioButton) part2.findViewById(gen.getCheckedRadioButtonId());
+
+                    user.gender = gender.getText().toString();
                     user.password = pswd1.getText().toString();
                     unm.setText(user.username);
 
@@ -158,7 +158,31 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this , MainActivity2.class));
+/*
+                Intent i = new Intent(MainActivity.this , MainActivity2.class);
+                startActivity(i);
+
+ */
+                Cursor cursor = db.getUsersData();
+                if (cursor.getCount() == 0){
+                    Toast.makeText(getApplicationContext() , "No users registered!" , Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                StringBuffer buffer = new StringBuffer();
+                while (cursor.moveToNext()){
+                    buffer.append("Name: " + cursor.getString(0) + "\n");
+                    buffer.append("Gender: " + cursor.getString(3) + "\tDOB: " + cursor.getString(4) + "\n");
+                    buffer.append("Phone Number: " + cursor.getString(1) + "\n");
+                    buffer.append("Email id: " + cursor.getString(2) + "\n");
+                    buffer.append("Distract: " + cursor.getString(5) + "\n");
+                    buffer.append("-------------\n\n");
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("Registered Users:");
+                builder.setMessage(buffer.toString());
+                builder.show();
             }
         });
 
